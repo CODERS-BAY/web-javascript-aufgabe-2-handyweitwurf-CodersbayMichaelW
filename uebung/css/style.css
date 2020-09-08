@@ -1,0 +1,86 @@
+:root {
+    --black: rgb(0, 0, 0);
+    --dark: rgb(50, 50, 50);
+    --grey: rgb(230, 230, 230);
+    --white: rgb(255, 255, 255);
+    --metalic: rgb(155, 162, 163);
+    --cyan: rgb(0, 255, 255);
+    --orange: rgb(255, 163, 77);
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: 'Merriweather', Arial;
+}
+
+/* navigation */
+header {
+    border-bottom: 2px solid var(--orange);
+    height: 5rem;
+    color: var(--grey);
+    background-color: var(--dark);
+}
+nav  {
+    padding: 1.5rem 0;
+}
+nav ul {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    list-style: none;
+}
+nav ul button {
+    font-size: 1.5rem;
+    border: none;
+    color: var(--grey);
+    background-color: var(--dark);
+}
+nav ul button:not(:first-child) {
+    margin-left: 10%;
+}
+nav ul button:hover {
+    cursor: pointer;
+    text-shadow: 1px 1px 0 var(--grey);
+
+    -webkit-transform: scale(1.5) skewX(-20deg) skewY(8deg);
+    -moz-transform: scale(1.5) skewX(-20deg) skewY(8deg);
+    -ms-transform: scale(1.5) skewX(-20deg) skewY(8deg);
+    -o-transform: scale(1.5) skewX(-20deg) skewY(8deg);
+    transform:  scale(1.5) skewX(-20deg) skewY(8deg);
+}
+
+/* main */
+main {
+    background-image: url('../img/earth.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 68vh;
+}
+
+img {
+    /* height: 100px; */
+}
+.phone {
+    border-radius: 6px;
+    position: relative;
+    bottom: 0px;
+    left: 75px;
+}
+.alien {
+    position: relative;
+
+}
+
+/* footer */
+footer {
+    border-top: 3.5px solid var(--orange);
+    background-color: var(--metalic);
+    height: 8.8rem;
+}
