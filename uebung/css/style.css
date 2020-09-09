@@ -16,7 +16,7 @@ html {
     scroll-behavior: smooth;
 }
 body {
-    font-family: 'Merriweather', Arial;
+    font-family: Arial;
 }
 
 /* navigation */
@@ -67,10 +67,51 @@ main {
 /* footer */
 footer {
     border-top: 3.5px solid var(--orange);
-    background-color: var(--metalic);
-    
+    background-color: var(--metalic); 
+    color: var(--white);
 }
+.grid-container {
+    margin-left: 30%;
+}
+
+.grid-container input, .grid-container p {
+    margin-left: 0.4rem;
+}
+#force, #angel {
+    width: 2rem;
+    height: 1rem;
+}
+#start {
+    height: 2rem;
+    width: 5rem;
+    border: none;
+    font-size: 1rem;
+}
+.distanceX label, .distanceY label, .gravity label, .distanceThrown label {
+    display: flex;
+}
+.grid-container div {
+    margin-top: 1rem;
+}
+.force {
+    padding-top: 1rem;
+}
+.distanceY {
+    padding-bottom: 3rem;
+}
+
 @media (min-width: 50rem) {
+    /* override phone-stuff */
+    .grid-container div {
+        margin-top: none;
+    }
+    .force {
+        padding-top: none;
+    }
+    .distanceY {
+        padding-bottom: 0;
+    }
+
     /* nav */
     nav ul button:hover {
         cursor: pointer;
@@ -88,13 +129,23 @@ footer {
         height: 8.8rem;
     }
     .grid-container {
+        width: 80%;
+        margin-left: 10%;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(2, 1fr);
-        gap: 5px 10px;
+        gap: 5px 0px;
         grid-template-areas:
           "force startButton gravity distanceX"
           "angel startButton distanceThrown distanceY";
+    }
+    .grid-container div:nth-of-type(n+3) {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+    .grid-container div:nth-of-type(1), .grid-container div:nth-of-type(2) {
+        padding-left: 5%;
     }
     .force {
         grid-area: force;
@@ -104,7 +155,6 @@ footer {
     }
     .startButton {
         grid-area: startButton;
-        display: flex;
     }
     .gravity {
         grid-area: gravity;
@@ -118,24 +168,13 @@ footer {
     .distanceY {
         grid-area: distanceY;
     }
-    
-    .distanceX label, .distanceY label, .gravity label, .distanceThrown label {
-        display: flex;
-    }
     .force, .gravity, .distanceX {
         margin-top: 2rem;
     }
     .angel, .distanceThrown, .distanceY {
         margin-top: 1rem;
     }
-    .force, .angel {
-        margin-left: 2rem;
-    }
-
     #start {
-        height: 2rem;
-        width: 5rem;
-        justify-content: center;
         align-self: center;
     }
 }
