@@ -26,12 +26,41 @@
         <!-- gameplay -->
         <img class="phone" src="img/phone.jpg" alt="smartphone">
         <img class="alien" src="img/alien.PNG" alt="alien">
-
     </main>
 
     <footer>
         <!-- input of User | display info -->
+        <div class="grid-container">
+            <div class="force">
+                <label for="force">Force:</label>
+                <input type="text" name="force" id="force">
+            </div>
 
+            <div class="angel">
+                <label for="angel">Angel:</label>
+                <input type="text" name="angel" id="angel">
+            </div>
+
+            <div class="startButton">
+                <button type="button" id="start">Throw</button>
+            </div>
+
+            <div class="gravity">
+                <label>Gravity:<p>9.8m/s<sup>2</sup></p></label>
+            </div>
+
+            <div class="distanceThrown">
+                <label for="distance">distance thrown:<p id="totalDistance">0</p>m</label>
+            </div>
+
+            <div class="distanceX">
+                <label>distance away in X:<p>100</p>m</label>
+            </div>
+
+            <div class="distanceY">
+                <label>distance away in Y:<p>20</p>m</label>
+            </div>
+          </div>
     </footer>
 </body>
 </html>

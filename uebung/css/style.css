@@ -44,16 +44,6 @@ nav ul button {
 nav ul button:not(:first-child) {
     margin-left: 10%;
 }
-nav ul button:hover {
-    cursor: pointer;
-    text-shadow: 1px 1px 0 var(--grey);
-
-    -webkit-transform: scale(1.5) skewX(-20deg) skewY(8deg);
-    -moz-transform: scale(1.5) skewX(-20deg) skewY(8deg);
-    -ms-transform: scale(1.5) skewX(-20deg) skewY(8deg);
-    -o-transform: scale(1.5) skewX(-20deg) skewY(8deg);
-    transform:  scale(1.5) skewX(-20deg) skewY(8deg);
-}
 
 /* main */
 main {
@@ -64,23 +54,88 @@ main {
     height: 68vh;
 }
 
-img {
-    /* height: 100px; */
-}
 .phone {
     border-radius: 6px;
     position: relative;
     bottom: 0px;
-    left: 75px;
+    left: 0px;
 }
 .alien {
     position: relative;
-
 }
 
 /* footer */
 footer {
     border-top: 3.5px solid var(--orange);
     background-color: var(--metalic);
-    height: 8.8rem;
+    
+}
+@media (min-width: 50rem) {
+    /* nav */
+    nav ul button:hover {
+        cursor: pointer;
+        text-shadow: 1px 1px 0 var(--grey);
+    
+        -webkit-transform: scale(1.5) skewX(-20deg) skewY(8deg);
+        -moz-transform: scale(1.5) skewX(-20deg) skewY(8deg);
+        -ms-transform: scale(1.5) skewX(-20deg) skewY(8deg);
+        -o-transform: scale(1.5) skewX(-20deg) skewY(8deg);
+        transform:  scale(1.5) skewX(-20deg) skewY(8deg);
+    }
+
+    /* footer */
+    footer {
+        height: 8.8rem;
+    }
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 5px 10px;
+        grid-template-areas:
+          "force startButton gravity distanceX"
+          "angel startButton distanceThrown distanceY";
+    }
+    .force {
+        grid-area: force;
+    }
+    .angel {
+        grid-area: angel;
+    }
+    .startButton {
+        grid-area: startButton;
+        display: flex;
+    }
+    .gravity {
+        grid-area: gravity;
+    }
+    .distanceThrown {
+        grid-area: distanceThrown;
+    }
+    .distanceX {
+        grid-area: distanceX;
+    }
+    .distanceY {
+        grid-area: distanceY;
+    }
+    
+    .distanceX label, .distanceY label, .gravity label, .distanceThrown label {
+        display: flex;
+    }
+    .force, .gravity, .distanceX {
+        margin-top: 2rem;
+    }
+    .angel, .distanceThrown, .distanceY {
+        margin-top: 1rem;
+    }
+    .force, .angel {
+        margin-left: 2rem;
+    }
+
+    #start {
+        height: 2rem;
+        width: 5rem;
+        justify-content: center;
+        align-self: center;
+    }
 }
