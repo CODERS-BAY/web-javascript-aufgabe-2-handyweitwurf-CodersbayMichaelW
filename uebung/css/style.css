@@ -6,6 +6,7 @@
     --metalic: rgb(155, 162, 163);
     --cyan: rgb(0, 255, 255);
     --orange: rgb(255, 163, 77);
+    --orangeLight: rgb(252, 193, 137);
 }
 * {
     margin: 0;
@@ -51,7 +52,7 @@ main {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    height: 68vh;
+    min-height: 68vh;
 }
 
 .phone {
@@ -77,35 +78,50 @@ footer {
 .grid-container input, .grid-container p {
     margin-left: 0.4rem;
 }
-#force, #angel {
+#speed, #angel {
     width: 2rem;
     height: 1rem;
 }
 #start {
-    height: 2rem;
-    width: 5rem;
-    border: none;
-    font-size: 1rem;
+	box-shadow: 0px 1px 0px 0px rgb(28, 27, 24);
+	background: linear-gradient(to bottom, var(--orange) 5%, var(--orangeLight) 100%);
+	background-color: var(--orange);
+	border-radius: 15px;
+	border: none;
+	display: inline-block;
+	cursor: pointer;
+	color: var(--black);
+	font-family: Arial;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 12px 16px;
+    text-decoration: none;
+    letter-spacing: 0.15rem;
+	text-shadow: 0px 1px 0px var(--white);
+}
+#start:active {
+	position:relative;
+	top:1px;
 }
 .distanceX label, .distanceY label, .gravity label, .distanceThrown label {
     display: flex;
 }
-.grid-container div {
+.speed, .gravity, .distanceX, .startButton, .angel, .distanceThrown, .distanceY {
     margin-top: 1rem;
-}
-.force {
-    padding-top: 1rem;
 }
 .distanceY {
     padding-bottom: 3rem;
 }
+.spacing {
+    display: inline-block;
+    width: 3rem;
+}
+input {
+    padding-left: 0.3rem;
+}
 
 @media (min-width: 50rem) {
-    /* override phone-stuff */
-    .grid-container div {
-        margin-top: none;
-    }
-    .force {
+    .speed {
         padding-top: none;
     }
     .distanceY {
@@ -136,7 +152,7 @@ footer {
         grid-template-rows: repeat(2, 1fr);
         gap: 5px 0px;
         grid-template-areas:
-          "force startButton gravity distanceX"
+          "speed startButton gravity distanceX"
           "angel startButton distanceThrown distanceY";
     }
     .grid-container div:nth-of-type(n+3) {
@@ -147,8 +163,8 @@ footer {
     .grid-container div:nth-of-type(1), .grid-container div:nth-of-type(2) {
         padding-left: 5%;
     }
-    .force {
-        grid-area: force;
+    .speed {
+        grid-area: speed;
     }
     .angel {
         grid-area: angel;
@@ -168,7 +184,7 @@ footer {
     .distanceY {
         grid-area: distanceY;
     }
-    .force, .gravity, .distanceX {
+    .speed, .gravity, .distanceX {
         margin-top: 2rem;
     }
     .angel, .distanceThrown, .distanceY {
@@ -176,5 +192,9 @@ footer {
     }
     #start {
         align-self: center;
+    }
+    #start:hover {
+        background: linear-gradient(to bottom, var(--orangeLight) 5%, var(--orange) 100%);
+        background-color: #ccc2a6;
     }
 }
