@@ -18,14 +18,15 @@ html {
 }
 body {
     font-family: Arial;
+    background-color: var(--metalic);
 }
 
 /* navigation */
 header {
     border-bottom: 2px solid var(--orange);
-    height: 5rem;
     color: var(--grey);
     background-color: var(--dark);
+    min-height: 10vh;
 }
 nav  {
     padding: 1.5rem 0;
@@ -52,10 +53,25 @@ main {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    min-height: 68vh;
+    min-height: 69vh;
     position: relative;
 }
-
+#background p, #trysLeft {
+    color: var(--white);
+    text-align: center;
+    padding-top: 0.5rem;
+}
+#background >  p {
+    font-size: 2rem;
+}
+#trysLeft {
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+}
+#trys {
+    margin-left: 0.5rem;
+}
 .phone {
     border-radius: 6px;
     position: absolute;
@@ -73,11 +89,11 @@ footer {
     border-top: 3.5px solid var(--orange);
     background-color: var(--metalic); 
     color: var(--white);
+    min-height: 20vh;
 }
 .grid-container {
     margin-left: 30%;
 }
-
 .grid-container input, .grid-container p {
     margin-left: 0.4rem;
 }
