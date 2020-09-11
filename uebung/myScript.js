@@ -33,12 +33,12 @@ function calculate() {
                     break;
                 }
             // hit ground
-            if(positionY < 0) {
+            if(positionY < 0) { // To-DO -> tell the user that the phone hit the ground
                 alert("Y");
                 break;
             }
             // shoot too hard and missed the alien
-            if (positionX > 105) {
+            if (positionX > distanceX + 5) { // To-DO -> tell the user that the phone flow past the alien
                 alert("X");
                 break;
             }
