@@ -53,16 +53,19 @@ main {
     background-position: center;
     background-size: cover;
     min-height: 68vh;
+    position: relative;
 }
 
 .phone {
     border-radius: 6px;
-    position: relative;
-    bottom: 0px;
-    left: 0px;
+    position: absolute;
+    bottom: 0;
+    left: 5%;
 }
 .alien {
-    position: relative;
+    position: absolute;
+    right: 5%;
+    top: 20%;
 }
 
 /* footer */

@@ -26,16 +26,18 @@ function calculate() {
             positionY += speedY;
             speedY -= gravity;
 
-            // hit monster
+            // hit area of monster
             if (positionX >= distanceX && positionX <= distanceX + widthMonster &&
                 positionY >= distanceY && positionY <= distanceY + heightMonster) {
                     alert("You have hit the Monster. Congratulation!");
                     break;
                 }
+            // hit ground
             if(positionY < 0) {
                 alert("Y");
                 break;
             }
+            // shoot too hard and missed the alien
             if (positionX > 105) {
                 alert("X");
                 break;
@@ -75,6 +77,11 @@ function setjupiter() {
     distance();
 }
 
+function distanceThrown() {
+    let speed = document.getElementById("speed").value;
+    let angel = document.getElementById("angel").value;
+    let gravity = document.getElementById("gravity").innerHTML;
+}
 
 myStart.addEventListener("click", calculate);
 
