@@ -47,10 +47,11 @@ function calculate() {
 };
 
 function distance() {
-    let distanceX = Math.floor(Math.random() * 51 + 50);
-    let distanceY = Math.floor(Math.random() * 31);
+    let distanceX = Math.floor(Math.random() * 201 + 100);
+    let distanceY = Math.floor(Math.random() * 81);
     document.getElementById("distanceX").innerHTML = distanceX;
     document.getElementById("distanceY").innerHTML = distanceY;
+    document.getElementById("alien").style.bottom = distanceY + "%";
 }
 
 function setearth() {
