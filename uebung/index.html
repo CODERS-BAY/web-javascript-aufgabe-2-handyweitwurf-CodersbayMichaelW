@@ -14,15 +14,15 @@
         <!-- option of planet -->
         <nav>
             <ul>
-                <button type="button"><li>Earth</li></button>
-                <button type="button"><li>Mond</li></button>
-                <button type="button"><li>Mars</li></button>
-                <button type="button"><li>Jupiter</li></button>
+                <button type="button" id="earth"><li>Earth</li></button>
+                <button type="button" id="moon"><li>Moon</li></button>
+                <button type="button" id="mars"><li>Mars</li></button>
+                <button type="button" id="jupiter"><li>Jupiter</li></button>
             </ul>
         </nav>
     </header>
 
-    <main>
+    <main id="background">
         <!-- gameplay -->
         <img class="phone" src="img/phone.jpg" alt="smartphone">
         <img class="alien" src="img/alien.PNG" alt="alien">
@@ -33,7 +33,7 @@
         <div class="grid-container">
             <div class="speed">
                 <label class="spacing" for="speed">Speed:</label>
-                <input type="text" name="speed" id="speed" value="10">
+                <input type="text" name="speed" id="speed" value="50">
                 <label>m/s<sup>2</sup></label>
             </div>
 
@@ -48,7 +48,7 @@
             </div>
 
             <div class="gravity">
-                <label>Gravity:<p id="gravity">9.8</p>m/s<sup>2</sup></label>
+                <label>Gravity:<p id="gravity">9.81</p>m/s<sup>2</sup></label>
             </div>
 
             <div class="distanceThrown">
