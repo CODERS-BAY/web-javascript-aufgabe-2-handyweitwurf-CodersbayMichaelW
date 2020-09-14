@@ -145,6 +145,10 @@ footer {
 input {
     padding-left: 0.3rem;
 }
+canvas {
+    width: 20px;
+    height: 20px;
+}
 
 @media (min-width: 50rem) {
     .speed {

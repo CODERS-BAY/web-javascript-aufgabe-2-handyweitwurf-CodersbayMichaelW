@@ -3,7 +3,7 @@ var earth = document.getElementById("earth");
 var moon = document.getElementById("moon");
 var mars = document.getElementById("mars");
 var jupiter = document.getElementById("jupiter");
-var lineOfFire = document.getElementById("lineOfFIreCheckbox");
+var lineOfFire = document.getElementById("lineOfFireCheckbox");
 var distanceXAway; // in cm = px
 var distanceYAway; // in cm = px
 var screenWidth, screenHeight, alienWidth, alienHeight;
@@ -145,18 +145,28 @@ function functionAwayY(distanceYAway, positionY) {
     return ( (distanceYAway + (alienHeight/2)) - positionY).toFixed(0) / 100;
 }
 
-/*
-    Have to redo the entire <main> in order to make this possible.
-    ToDo - Change the entire layout into a canvas.
-*/
-// function drawLineOfFire() {
-//     if (lineOfFire.checked) {
-//         let canvas = document.getElementById("background");
-//         let el = canvas.getContext("2d");
-//         el.fillStyle = "#FF0000";
-//         el.fillRect(0, 0, 150, 75);
-//     }
-// }
+function drawLineOfFire() {
+    // draws the line of fire when checked
+    if (lineOfFire.checked) {
+        for (i = 0; i < 5; i++) {
+            let x = document.createElement("CANVAS");
+            let ctx = x.getContext("2d");
+            ctx.fillStyle = "red";
+            ctx.fillRect(0, 0, 255, 255);
+
+            document.getElementById("background").appendChild(x);
+        }
+    }
+    // deletes only the line of fire when unchecked | works
+    else {
+        let myObj = document.getElementById("background");
+        let child = myObj.lastElementChild;
+        while (child.tagName == "CANVAS") {
+            myObj.removeChild(child);
+            child = myObj.lastElementChild;
+        }
+    }
+}
 
 myStart.addEventListener("click", calculate);
 
@@ -165,6 +175,6 @@ moon.addEventListener("click", setmoon);
 mars.addEventListener("click", setmars);
 jupiter.addEventListener("click", setjupiter);
 
-// lineOfFire.addEventListener("click", drawLineOfFire);
+lineOfFire.addEventListener("click", drawLineOfFire);
 
 window.onload = setupGame;
