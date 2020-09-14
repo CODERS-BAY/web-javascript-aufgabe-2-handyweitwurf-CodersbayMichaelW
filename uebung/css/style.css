@@ -102,7 +102,6 @@ footer {
     border-top: 3.5px solid var(--orange);
     background-color: var(--metalic); 
     color: var(--white);
-    min-height: 20vh;
 }
 .grid-container {
     margin-left: 30%;
@@ -174,7 +173,7 @@ input {
 
     /* footer */
     footer {
-        height: 8.8rem;
+        height: 8rem;
     }
     .grid-container {
         width: 80%;
