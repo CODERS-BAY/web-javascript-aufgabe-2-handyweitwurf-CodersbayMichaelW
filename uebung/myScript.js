@@ -90,7 +90,7 @@ function calculate() {
     }
     //angel has to be between 1 and 90
     else if (angel >= 1 && angel <= 90) {
-        // document.getElementById("trys").innerHTML = --trysLeft;
+        document.getElementById("trys").innerHTML = --trysLeft;
 
         // get all the variables
         let positionX = phoneleft;
