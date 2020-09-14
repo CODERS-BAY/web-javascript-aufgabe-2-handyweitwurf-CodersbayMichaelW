@@ -10,7 +10,7 @@ var distanceXAway; // in cm = px
 var distanceYAway; // in cm = px
 var screenWidth, screenHeight, alienWidth, alienHeight;
 var phoneWeight = 0.138; // kg
-var phoneleft = 50 + 47;
+var phoneleft = 73.5;
 
 // --------------------------------------------------------------
 function setupGame() {
@@ -26,54 +26,54 @@ function setupGame() {
     // let phoneBottom = parseInt(style.getPropertyValue('bottom'));
     // phoneLeft = parseInt(phone.style.getPropertyValue('left')) + document.getElementById("phone").clientWidth;
     phoneBottom = 0;
-    phoneLeft = 50 + 47;
+    phoneLeft = 73.5;
 
     // 90-100% of screen
     let distanceXpx = Math.floor( (Math.random() * (screenWidth - (screenWidth - alienWidth))) + (screenWidth - 2*alienWidth) );
     // 0-100% of screen
     let distanceYpx = Math.floor(Math.random() * (screenHeight - alienHeight));
 
-    distanceXAway = distanceXpx - phoneLeft;
-    distanceYAway = distanceYpx - phoneBottom + (alienHeight/2);
+    distanceXAway = distanceXpx;
+    distanceYAway = distanceYpx;
 
     document.getElementById("trys").innerHTML = "5";
     document.getElementById("result").innerHTML = "";
     document.getElementById("debug2").innerHTML = "";
     document.getElementById("debug3").innerHTML = "";
-    document.getElementById("distanceX").innerHTML = distanceXAway / 100;
+    document.getElementById("distanceX").innerHTML = (distanceXAway-phoneLeft) / 100;
     document.getElementById("distanceY").innerHTML = distanceYAway / 100;
 
-    if (screenWidth > 800) {
-    document.getElementById("alien").style.right = (95 - Math.floor(((distanceXpx / screenWidth) *100))) + "%";
-    }
-    else {
-        document.getElementById("alien").style.right = (80 - Math.floor(((distanceXpx / screenWidth) *100))) + "%";
-    }
+    document.getElementById("alien").style.left = (distanceXAway) + "px";
     document.getElementById("alien").style.bottom = (distanceYpx) + "px";
+
 }
 
 function setearth() {
     document.getElementById("background").style.backgroundImage = "url('img/earth.jpg')";
     document.getElementById("gravity").innerHTML = 9.81;
     setupGame();
+    updateValues();
 }
 
 function setmoon() {
     document.getElementById("background").style.backgroundImage = "url('img/moon.jpg')";
     document.getElementById("gravity").innerHTML = 1.62;
     setupGame();
+    updateValues();
 }
 
 function setmars() {
     document.getElementById("background").style.backgroundImage = "url('img/mars.jpg')";
     document.getElementById("gravity").innerHTML = 3.69;
     setupGame();
+    updateValues();
 }
 
 function setjupiter() {
     document.getElementById("background").style.backgroundImage = "url('img/jupiter.jpg')";
     document.getElementById("gravity").innerHTML = 24.79;
     setupGame();
+    updateValues();
 }
 
 // --------------------------------------------------------------
@@ -90,7 +90,7 @@ function calculate() {
     }
     //angel has to be between 1 and 90
     else if (angel >= 1 && angel <= 90) {
-        document.getElementById("trys").innerHTML = --trysLeft;
+        // document.getElementById("trys").innerHTML = --trysLeft;
 
         // get all the variables
         let positionX = phoneleft;
@@ -146,7 +146,7 @@ function functionAwayX(distanceXAway, positionX) {
     return ( (distanceXAway + (Math.floor(alienWidth/2))) - positionX).toFixed(0) / 100;
 }
 function functionAwayY(distanceYAway, positionY) {
-    return ( (distanceYAway + (alienHeight/2)) - positionY).toFixed(0) / 100;
+    return (distanceYAway - positionY).toFixed(0) / 100;
 }
 
 function distanceThrown(positionX, positionY) {
@@ -186,16 +186,16 @@ function drawLineOfFire() {
             ctx.fillStyle = "red";
             ctx.fillRect(0, 0, 255, 255);
 
-            lineOfFireX += velocityX;
-            lineOfFireY += velocityY;
-            velocityY -= gravity;
-
             // add before
             x.style.position = "absolute";
             x.style.left = lineOfFireX + "px";
             x.style.bottom = lineOfFireY + "px";
 
             document.getElementById("background").appendChild(x);
+
+            lineOfFireX += velocityX;
+            lineOfFireY += velocityY;
+            velocityY -= gravity;
         }
     }
     // deletes only the line of fire when unchecked | works

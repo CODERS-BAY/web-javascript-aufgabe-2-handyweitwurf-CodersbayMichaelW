@@ -88,9 +88,9 @@ main p {
 }
 .alien {
     position: absolute;
-    right: 95%;
     bottom: 0px; /* Screenheight- Alienheigt -> 100% */ 
     border: 1px solid red;
+    left: 90%
 }
 canvas {
     width: 10px;
