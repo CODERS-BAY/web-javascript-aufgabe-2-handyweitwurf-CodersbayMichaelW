@@ -4,20 +4,29 @@ var moon = document.getElementById("moon");
 var mars = document.getElementById("mars");
 var jupiter = document.getElementById("jupiter");
 var lineOfFire = document.getElementById("lineOfFireCheckbox");
+var forceUpdate = document.getElementById("speed");
+var angelUpdate = document.getElementById("angel");
 var distanceXAway; // in cm = px
 var distanceYAway; // in cm = px
 var screenWidth, screenHeight, alienWidth, alienHeight;
+var phoneWeight = 0.138; // kg
+var phoneleft = 50 + 47;
 
+// --------------------------------------------------------------
 function setupGame() {
     screenWidth = document.getElementById('background').clientWidth;
     screenHeight = document.getElementById('background').clientHeight;
     alienWidth = document.getElementById("alien").clientWidth;
     alienHeight = document.getElementById("alien").clientHeight;
     // get phone elements
-    let element = document.getElementById('phone'),
-    style = window.getComputedStyle(element),
-    phoneLeft = parseInt(style.getPropertyValue('left')) + document.getElementById("phone").clientWidth;
-    phoneBottom = parseInt(style.getPropertyValue('bottom'));
+    let element = document.getElementById('phone');
+    let style = window.getComputedStyle(element);
+
+    // To-Do !!!!!!!
+    // let phoneBottom = parseInt(style.getPropertyValue('bottom'));
+    // phoneLeft = parseInt(phone.style.getPropertyValue('left')) + document.getElementById("phone").clientWidth;
+    phoneBottom = 0;
+    phoneLeft = 50 + 47;
 
     // 90-100% of screen
     let distanceXpx = Math.floor( (Math.random() * (screenWidth - (screenWidth - alienWidth))) + (screenWidth - 2*alienWidth) );
@@ -67,15 +76,11 @@ function setjupiter() {
     setupGame();
 }
 
-function distanceThrown(positionX, positionY) {
-    document.getElementById("totalDistance").innerHTML = Math.round( (Math.sqrt((positionX * positionX) + (positionY * positionY)))) / 100;
-}
+// --------------------------------------------------------------
 
 function calculate() {
-    let angel = Number(document.getElementById("angel").value),
-    trysLeft = Number(document.getElementById("trys").innerHTML),
-    positionX = 0,
-    positionY = 0;
+    let angel = Number(document.getElementById("angel").value);
+    let trysLeft = Number(document.getElementById("trys").innerHTML);
     document.getElementById("result").innerHTML = "";
 
     if (trysLeft == 0) {
@@ -87,17 +92,15 @@ function calculate() {
     else if (angel >= 1 && angel <= 90) {
         document.getElementById("trys").innerHTML = --trysLeft;
 
-        let gravity = Number(document.getElementById("gravity").innerHTML),
-        speed = Number(document.getElementById("speed").value),
-        phoneWeight = 0.138, // kg
-        positionX = 0,
-        positionY = 0;
+        // get all the variables
+        let positionX = phoneleft;
+        let positionY = 0;
+        let gravity = Number(document.getElementById("gravity").innerHTML);
+        var speed = Number(document.getElementById("speed").value);
 
-        angel = angel * ( Math.PI / 180 ); // from degrees to radians!
-        let ForceX = Math.floor((speed * Math.cos(angel)) * 100) / 100,
-        ForceY = Math.floor((speed * Math.sin(angel)) * 100) / 100,
-        velocityX = Math.floor((ForceX / phoneWeight) * 100) / 100, // m/s or px/s
-        velocityY = Math.floor((ForceY / phoneWeight) * 100) / 100; // m/s or px/s
+        // calc to get some variables
+        let velocityX = calcVelocityX(speed);
+        let velocityY = calcVelocityY(speed);
 
         // in scope
         while (positionY >= 0 && positionX <= screenWidth + 5) {
@@ -138,6 +141,7 @@ function calculate() {
     }
 }
 
+// --------------------------------------------------------------
 function functionAwayX(distanceXAway, positionX) {
     return ( (distanceXAway + (Math.floor(alienWidth/2))) - positionX).toFixed(0) / 100;
 }
@@ -145,36 +149,95 @@ function functionAwayY(distanceYAway, positionY) {
     return ( (distanceYAway + (alienHeight/2)) - positionY).toFixed(0) / 100;
 }
 
+function distanceThrown(positionX, positionY) {
+    document.getElementById("totalDistance").innerHTML = Math.round( (Math.sqrt((positionX * positionX) + (positionY * positionY)))) / 100;
+}
+
+// m/s or px/s
+function calcVelocityX(speed) {
+    let angel = Number(document.getElementById("angel").value);
+    angel = angel * ( Math.PI / 180 ); // from degrees to radians!
+    let forceX = Math.floor((speed * Math.cos(angel)) * 100) / 100;
+    return Math.floor((forceX / phoneWeight) * 100) / 100; 
+}
+
+function calcVelocityY(speed) {
+    let angel = Number(document.getElementById("angel").value);
+    angel = angel * ( Math.PI / 180 ); // from degrees to radians!
+    let forceY = Math.floor((speed * Math.sin(angel)) * 100) / 100;
+    return Math.floor((forceY / phoneWeight) * 100) / 100;
+}
+
+// --------------------------------------------------------------
 function drawLineOfFire() {
     // draws the line of fire when checked
+    // position
+    var speed = Number(document.getElementById("speed").value);
+    let gravity = Number(document.getElementById("gravity").innerHTML);
+    let velocityX = calcVelocityX(speed);
+    let velocityY = calcVelocityY(speed);
+    let lineOfFireX = phoneleft;
+    let lineOfFireY = 0;
+
     if (lineOfFire.checked) {
-        for (i = 0; i < 5; i++) {
+        while (lineOfFireY >= 0 && lineOfFireX <= screenWidth + 5) {
             let x = document.createElement("CANVAS");
             let ctx = x.getContext("2d");
             ctx.fillStyle = "red";
             ctx.fillRect(0, 0, 255, 255);
+
+            lineOfFireX += velocityX;
+            lineOfFireY += velocityY;
+            velocityY -= gravity;
+
+            // add before
+            x.style.position = "absolute";
+            x.style.left = lineOfFireX + "px";
+            x.style.bottom = lineOfFireY + "px";
 
             document.getElementById("background").appendChild(x);
         }
     }
     // deletes only the line of fire when unchecked | works
     else {
-        let myObj = document.getElementById("background");
-        let child = myObj.lastElementChild;
-        while (child.tagName == "CANVAS") {
-            myObj.removeChild(child);
-            child = myObj.lastElementChild;
-        }
+        deleteAllLineOfFire();
     }
 }
 
-myStart.addEventListener("click", calculate);
+function deleteAllLineOfFire() {
+    let myObj = document.getElementById("background");
+    let child = myObj.lastElementChild;
+    while (child.tagName == "CANVAS") {
+        myObj.removeChild(child);
+        child = myObj.lastElementChild;
+    }
+}
+
+function unsetLineOfFireCheckbox() {
+    document.getElementById("lineOfFireCheckbox").checked = false;
+    deleteAllLineOfFire();
+}
+
+function updateValues() {
+    deleteAllLineOfFire();
+    drawLineOfFire();
+}
+
+function onResize() {
+    setupGame();
+    unsetLineOfFireCheckbox();
+}
+
 
 earth.addEventListener("click", setearth);
 moon.addEventListener("click", setmoon);
 mars.addEventListener("click", setmars);
 jupiter.addEventListener("click", setjupiter);
 
+myStart.addEventListener("click", calculate);
 lineOfFire.addEventListener("click", drawLineOfFire);
+forceUpdate.addEventListener("keyup", updateValues);
+angelUpdate.addEventListener("keyup", updateValues);
 
 window.onload = setupGame;
+window.onresize = onResize;

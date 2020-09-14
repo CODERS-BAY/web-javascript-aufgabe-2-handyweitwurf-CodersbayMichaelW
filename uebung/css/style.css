@@ -15,6 +15,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 body {
     font-family: Arial;
@@ -89,6 +90,11 @@ main p {
     position: absolute;
     right: 95%;
     bottom: 0px; /* Screenheight- Alienheigt -> 100% */ 
+    border: 1px solid red;
+}
+canvas {
+    width: 10px;
+    height: 10px;
 }
 
 /* footer */
@@ -144,10 +150,6 @@ footer {
 }
 input {
     padding-left: 0.3rem;
-}
-canvas {
-    width: 20px;
-    height: 20px;
 }
 
 @media (min-width: 50rem) {
