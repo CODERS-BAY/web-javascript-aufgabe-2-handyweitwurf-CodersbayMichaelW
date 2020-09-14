@@ -3,6 +3,7 @@ var earth = document.getElementById("earth");
 var moon = document.getElementById("moon");
 var mars = document.getElementById("mars");
 var jupiter = document.getElementById("jupiter");
+var lineOfFire = document.getElementById("lineOfFIreCheckbox");
 var distanceXAway; // in cm = px
 var distanceYAway; // in cm = px
 var screenWidth, screenHeight, alienWidth, alienHeight;
@@ -33,7 +34,12 @@ function setupGame() {
     document.getElementById("distanceX").innerHTML = distanceXAway / 100;
     document.getElementById("distanceY").innerHTML = distanceYAway / 100;
 
+    if (screenWidth > 800) {
     document.getElementById("alien").style.right = (95 - Math.floor(((distanceXpx / screenWidth) *100))) + "%";
+    }
+    else {
+        document.getElementById("alien").style.right = (80 - Math.floor(((distanceXpx / screenWidth) *100))) + "%";
+    }
     document.getElementById("alien").style.bottom = (distanceYpx) + "px";
 }
 
@@ -139,11 +145,26 @@ function functionAwayY(distanceYAway, positionY) {
     return ( (distanceYAway + (alienHeight/2)) - positionY).toFixed(0) / 100;
 }
 
+/*
+    Have to redo the entire <main> in order to make this possible.
+    ToDo - Change the entire layout into a canvas.
+*/
+// function drawLineOfFire() {
+//     if (lineOfFire.checked) {
+//         let canvas = document.getElementById("background");
+//         let el = canvas.getContext("2d");
+//         el.fillStyle = "#FF0000";
+//         el.fillRect(0, 0, 150, 75);
+//     }
+// }
+
 myStart.addEventListener("click", calculate);
 
 earth.addEventListener("click", setearth);
 moon.addEventListener("click", setmoon);
 mars.addEventListener("click", setmars);
 jupiter.addEventListener("click", setjupiter);
+
+// lineOfFire.addEventListener("click", drawLineOfFire);
 
 window.onload = setupGame;

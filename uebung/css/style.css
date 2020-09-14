@@ -132,7 +132,7 @@ footer {
 .distanceX label, .distanceY label, .gravity label, .distanceThrown label {
     display: flex;
 }
-.speed, .gravity, .distanceX, .startButton, .angel, .distanceThrown, .distanceY {
+.speed, .gravity, .distanceX, .startButton, .angel, .distanceThrown, .distanceY, .lineOfFire {
     margin-top: 1rem;
 }
 .distanceY {
@@ -197,6 +197,7 @@ input {
     }
     .startButton {
         grid-area: startButton;
+        flex-direction: column;
     }
     .gravity {
         grid-area: gravity;
@@ -222,5 +223,12 @@ input {
     #start:hover {
         background: linear-gradient(to bottom, var(--orangeLight) 5%, var(--orange) 100%);
         background-color: #ccc2a6;
+    }
+    .lineOfFire {
+        display: flex;
+        justify-content: center;
+    }
+    .lineOfFire label {
+        margin-left: 0.5rem;
     }
 }
