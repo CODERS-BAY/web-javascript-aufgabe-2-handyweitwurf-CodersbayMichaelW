@@ -11,6 +11,12 @@ var distanceYAway; // in cm = px
 var screenWidth, screenHeight, alienWidth, alienHeight;
 var phoneWeight = 0.138; // kg
 var phoneleft = 73.5;
+var ratioPxToM = 100;
+var positionX;
+var positionY;
+var velocityY;
+var velocityX;
+var gravity;
 
 // --------------------------------------------------------------
 function setupGame() {
@@ -92,22 +98,11 @@ function calculate() {
     else if (angel >= 1 && angel <= 90) {
         document.getElementById("trys").innerHTML = --trysLeft;
 
-        // get all the variables
-        let positionX = phoneleft;
-        let positionY = 0;
-        let gravity = Number(document.getElementById("gravity").innerHTML);
-        var speed = Number(document.getElementById("speed").value);
-
-        // calc to get some variables
-        let velocityX = calcVelocityX(speed);
-        let velocityY = calcVelocityY(speed);
+        // set all the Variables
+        calcFlyingpath();
 
         // in scope
         while (positionY >= 0 && positionX <= screenWidth + 5) {
-            positionX += velocityX;
-            positionY += velocityY;
-            velocityY -= gravity;
-
             // hit area of monster
             if (positionX >= distanceXAway && positionX <= distanceXAway + alienWidth &&
                 positionY >= distanceYAway && positionY <= distanceYAway + alienHeight) {
@@ -137,6 +132,8 @@ function calculate() {
                 distanceThrown(positionX, positionY);
                 break;
             }
+            // updates Values
+            calcFlyingpahtUpdateValues();
         }
     }
 }
@@ -161,26 +158,31 @@ function calcVelocityX(speed) {
     return Math.floor((forceX / phoneWeight) * 100) / 100; 
 }
 
-function calcVelocityY(speed) {
+// calcs the velocity in the y-axis per 1 unit to the right
+function calcVelocityY(speed, speedX) {
     let angel = Number(document.getElementById("angel").value);
     angel = angel * ( Math.PI / 180 ); // from degrees to radians!
     let forceY = Math.floor((speed * Math.sin(angel)) * 100) / 100;
-    return Math.floor((forceY / phoneWeight) * 100) / 100;
+    forceY = Math.floor((forceY / phoneWeight) * 100) / 100;
+    return (forceY / speedX) ;
+}
+
+// calcs the gravity in the y-axis per 1 unit to the right
+function clacGravity(speedX) {
+    // not a correct formula but it works
+    let calcGravity = Number(document.getElementById("gravity").innerHTML)
+    return ((calcGravity / speedX) / 80);
 }
 
 // --------------------------------------------------------------
 function drawLineOfFire() {
     // draws the line of fire when checked
-    // position
-    var speed = Number(document.getElementById("speed").value);
-    let gravity = Number(document.getElementById("gravity").innerHTML);
-    let velocityX = calcVelocityX(speed);
-    let velocityY = calcVelocityY(speed);
-    let lineOfFireX = phoneleft;
-    let lineOfFireY = 0;
-
     if (lineOfFire.checked) {
-        while (lineOfFireY >= 0 && lineOfFireX <= screenWidth + 5) {
+        // sets Variable
+        calcFlyingpath()
+        
+        while (positionY >= 0 && positionX <= screenWidth + 5) {
+            // draws shape = rectangle
             let x = document.createElement("CANVAS");
             let ctx = x.getContext("2d");
             ctx.fillStyle = "red";
@@ -188,14 +190,14 @@ function drawLineOfFire() {
 
             // add before
             x.style.position = "absolute";
-            x.style.left = lineOfFireX + "px";
-            x.style.bottom = lineOfFireY + "px";
+            x.style.left = positionX + "px";
+            x.style.bottom = positionY + "px";
 
+            // add the element to in main as html code
             document.getElementById("background").appendChild(x);
 
-            lineOfFireX += velocityX;
-            lineOfFireY += velocityY;
-            velocityY -= gravity;
+            // updates Variable
+            calcFlyingpahtUpdateValues()
         }
     }
     // deletes only the line of fire when unchecked | works
@@ -203,7 +205,22 @@ function drawLineOfFire() {
         deleteAllLineOfFire();
     }
 }
+// --------------------------------------------------------------
+function calcFlyingpath() {
+    var speed = Number(document.getElementById("speed").value);
+    velocityX = calcVelocityX(speed);
+    gravity = clacGravity(velocityX);
+    velocityY = calcVelocityY(speed, velocityX);
+    positionX = phoneleft;
+    positionY = 0;
+}
+function calcFlyingpahtUpdateValues() {
+    positionX += 1;
+    positionY += velocityY;
+    velocityY -= gravity;
+}
 
+// --------------------------------------------------------------
 function deleteAllLineOfFire() {
     let myObj = document.getElementById("background");
     let child = myObj.lastElementChild;
