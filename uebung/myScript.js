@@ -12,11 +12,7 @@ var screenWidth, screenHeight, alienWidth, alienHeight;
 var phoneWeight = 0.138; // kg
 var phoneleft = 73.5;
 var ratioPxToM = 100;
-var positionX;
-var positionY;
-var velocityY;
-var velocityX;
-var gravity;
+var positionX, positionY, velocityY, velocityX, gravity, distanceTotal;
 
 // --------------------------------------------------------------
 function setupGame() {
@@ -41,13 +37,15 @@ function setupGame() {
 
     distanceXAway = distanceXpx;
     distanceYAway = distanceYpx;
+    distanceTotal = 0;
 
     document.getElementById("trys").innerHTML = "5";
     document.getElementById("result").innerHTML = "";
     document.getElementById("debug2").innerHTML = "";
     document.getElementById("debug3").innerHTML = "";
-    document.getElementById("distanceX").innerHTML = (distanceXAway-phoneLeft) / 100;
-    document.getElementById("distanceY").innerHTML = distanceYAway / 100;
+    document.getElementById("distanceX").innerHTML = (distanceXAway-phoneLeft) / ratioPxToM;
+    document.getElementById("distanceY").innerHTML = distanceYAway / ratioPxToM;
+    document.getElementById("totalDistance").innerHTML = distanceTotal;
 
     document.getElementById("alien").style.left = (distanceXAway) + "px";
     document.getElementById("alien").style.bottom = (distanceYpx) + "px";
@@ -88,6 +86,7 @@ function calculate() {
     let angel = Number(document.getElementById("angel").value);
     let trysLeft = Number(document.getElementById("trys").innerHTML);
     document.getElementById("result").innerHTML = "";
+    distanceTotal = 0;
 
     if (trysLeft == 0) {
         document.getElementById("result").innerHTML = "All your trys are consumed";
@@ -109,7 +108,7 @@ function calculate() {
                 document.getElementById("result").innerHTML = "You have hit the Monster. Congratulation!";
                 document.getElementById("debug2").innerHTML = "";
                 document.getElementById("debug3").innerHTML = "";
-                distanceThrown(positionX, positionY);
+                distanceThrown();
                 break;
             }
             // shoot too hard and missed the alien
@@ -117,7 +116,7 @@ function calculate() {
                 document.getElementById("result").innerHTML = "The phone flow past the alien";
                 // document.getElementById("debug2").innerHTML = "X away: " + (distanceXAway - positionX).toFixed(0) / 100  + "m";
                 document.getElementById("debug2").innerHTML = "Y away: " + functionAwayY(distanceYAway, positionY) + "m";
-                distanceThrown(positionX, positionY);
+                distanceThrown();
                 break;
             }
             // hit ground
@@ -129,7 +128,7 @@ function calculate() {
                 console.log("alien width: " + alienWidth/2);
                 console.log("speedX: " + velocityX);
                 // document.getElementById("debug3").innerHTML = "Y away: " + (distanceYAway / 100) + "m";
-                distanceThrown(positionX, positionY);
+                distanceThrown();
                 break;
             }
             // updates Values
@@ -146,8 +145,9 @@ function functionAwayY(distanceYAway, positionY) {
     return (distanceYAway - positionY).toFixed(0) / 100;
 }
 
-function distanceThrown(positionX, positionY) {
-    document.getElementById("totalDistance").innerHTML = Math.round( (Math.sqrt((positionX * positionX) + (positionY * positionY)))) / 100;
+function distanceThrown() {
+    // document.getElementById("totalDistance").innerHTML = Math.round( (Math.sqrt((positionX * positionX) + (positionY * positionY)))) / 100;
+    document.getElementById("totalDistance").innerHTML = Math.round(distanceTotal) / 100;
 }
 
 // m/s or px/s
@@ -171,7 +171,7 @@ function calcVelocityY(speed, speedX) {
 function clacGravity(speedX) {
     // not a correct formula but it works
     let calcGravity = Number(document.getElementById("gravity").innerHTML)
-    return ((calcGravity / speedX) / 80);
+    return ((calcGravity / speedX) / 30);
 }
 
 // --------------------------------------------------------------
@@ -180,12 +180,14 @@ function drawLineOfFire() {
     if (lineOfFire.checked) {
         // sets Variable
         calcFlyingpath()
-        
+
         while (positionY >= 0 && positionX <= screenWidth + 5) {
-            // draws shape = rectangle
+            // setup drawing board
             let x = document.createElement("CANVAS");
             let ctx = x.getContext("2d");
-            ctx.fillStyle = "red";
+
+            // draws rectangle ---------------------
+            ctx.fillStyle = "cyan";
             ctx.fillRect(0, 0, 255, 255);
 
             // add before
@@ -215,6 +217,7 @@ function calcFlyingpath() {
     positionY = 0;
 }
 function calcFlyingpahtUpdateValues() {
+    distanceTotal += Math.sqrt( (1) + (velocityY * velocityY) );
     positionX += 1;
     positionY += velocityY;
     velocityY -= gravity;
