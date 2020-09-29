@@ -1,0 +1,239 @@
+:root {
+    --black: rgb(0, 0, 0);
+    --dark: rgb(50, 50, 50);
+    --grey: rgb(230, 230, 230);
+    --white: rgb(255, 255, 255);
+    --metalic: rgb(155, 162, 163);
+    --cyan: rgb(0, 255, 255);
+    --orange: rgb(255, 163, 77);
+    --orangeLight: rgb(252, 193, 137);
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+body {
+    font-family: Arial;
+    background-color: var(--metalic);
+}
+
+/* navigation */
+header {
+    border-bottom: 2px solid var(--orange);
+    color: var(--grey);
+    background-color: var(--dark);
+    min-height: 30px;
+}
+nav  {
+    padding: 1.5rem 0;
+}
+nav ul {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    list-style: none;
+}
+nav ul button {
+    font-size: 1.5rem;
+    border: none;
+    color: var(--grey);
+    background-color: var(--dark);
+}
+nav ul button:not(:first-child) {
+    margin-left: 10%;
+}
+
+/* main */
+main {
+    background-image: url('../img/earth.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    min-height: 69vh;
+    position: relative;
+}
+#background p, #trysLeft {
+    color: var(--white);
+    text-align: center;
+    padding-top: 0.5rem;
+}
+main p {
+    text-shadow:
+        -1px -1px 0 #000,  
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+#background >  p {
+    font-size: 2rem;
+}
+#trysLeft {
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+}
+#trys {
+    margin-left: 0.5rem;
+}
+.phone {
+    border-radius: 6px;
+    position: absolute;
+    bottom: 0;
+    left: 50px;
+}
+.alien {
+    position: absolute;
+    bottom: 0px; /* Screenheight- Alienheigt -> 100% */ 
+    border: 1px solid red;
+    left: 90%
+}
+canvas {
+    width: 1px;
+    height: 1px;
+}
+
+/* footer */
+footer {
+    border-top: 3.5px solid var(--orange);
+    background-color: var(--metalic); 
+    color: var(--white);
+}
+.grid-container {
+    margin-left: 30%;
+}
+.grid-container input, .grid-container p {
+    margin-left: 0.4rem;
+}
+#speed, #angel {
+    width: 2rem;
+    height: 1rem;
+}
+#start {
+	box-shadow: 0px 1px 0px 0px rgb(28, 27, 24);
+	background: linear-gradient(to bottom, var(--orange) 5%, var(--orangeLight) 100%);
+	background-color: var(--orange);
+	border-radius: 15px;
+	border: none;
+	display: inline-block;
+	cursor: pointer;
+	color: var(--black);
+	font-family: Arial;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 12px 16px;
+    text-decoration: none;
+    letter-spacing: 0.15rem;
+	text-shadow: 0px 1px 0px var(--white);
+}
+#start:active {
+	position:relative;
+	top:1px;
+}
+.distanceX label, .distanceY label, .gravity label, .distanceThrown label {
+    display: flex;
+}
+.speed, .gravity, .distanceX, .startButton, .angel, .distanceThrown, .distanceY, .lineOfFire {
+    margin-top: 1rem;
+}
+.distanceY {
+    padding-bottom: 3rem;
+}
+.spacing {
+    display: inline-block;
+    width: 3rem;
+}
+input {
+    padding-left: 0.3rem;
+}
+
+@media (min-width: 50rem) {
+    .speed {
+        padding-top: none;
+    }
+    .distanceY {
+        padding-bottom: 0;
+    }
+
+    /* nav */
+    nav ul button:hover {
+        cursor: pointer;
+        text-shadow: 1px 1px 0 var(--grey);
+    
+        -webkit-transform: scale(1.5) skewX(-20deg) skewY(8deg);
+        -moz-transform: scale(1.5) skewX(-20deg) skewY(8deg);
+        -ms-transform: scale(1.5) skewX(-20deg) skewY(8deg);
+        -o-transform: scale(1.5) skewX(-20deg) skewY(8deg);
+        transform:  scale(1.5) skewX(-20deg) skewY(8deg);
+    }
+
+    /* footer */
+    footer {
+        height: 8rem;
+    }
+    .grid-container {
+        width: 80%;
+        margin-left: 10%;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 5px 0px;
+        grid-template-areas:
+          "speed startButton gravity distanceX"
+          "angel startButton distanceThrown distanceY";
+    }
+    .grid-container div:nth-of-type(n+3) {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+    .grid-container div:nth-of-type(1), .grid-container div:nth-of-type(2) {
+        padding-left: 5%;
+    }
+    .speed {
+        grid-area: speed;
+    }
+    .angel {
+        grid-area: angel;
+    }
+    .startButton {
+        grid-area: startButton;
+        flex-direction: column;
+    }
+    .gravity {
+        grid-area: gravity;
+    }
+    .distanceThrown {
+        grid-area: distanceThrown;
+    }
+    .distanceX {
+        grid-area: distanceX;
+    }
+    .distanceY {
+        grid-area: distanceY;
+    }
+    .speed, .gravity, .distanceX {
+        margin-top: 2rem;
+    }
+    .angel, .distanceThrown, .distanceY {
+        margin-top: 1rem;
+    }
+    #start {
+        align-self: center;
+    }
+    #start:hover {
+        background: linear-gradient(to bottom, var(--orangeLight) 5%, var(--orange) 100%);
+        background-color: #ccc2a6;
+    }
+    .lineOfFire {
+        display: flex;
+        justify-content: center;
+    }
+    .lineOfFire label {
+        margin-left: 0.5rem;
+    }
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Phone-Throw</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css"/> 
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet"> 
+</head>
+
+<body>
+    <header>
+        <!-- option of planet -->
+        <nav>
+            <ul>
+                <button type="button" id="earth"><li>Earth</li></button>
+                <button type="button" id="moon"><li>Moon</li></button>
+                <button type="button" id="mars"><li>Mars</li></button>
+                <button type="button" id="jupiter"><li>Jupiter</li></button>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="background">
+        <!-- gameplay -->
+        <div id="trysLeft">
+            <p>Try's: </p>
+            <p id="trys">5</p>
+        </div>
+        <p id="result"></p>
+        <p id="debug2"></p>
+        <p id="debug3"></p>
+        <img class="phone" id="phone" src="img/phone.jpg" alt="smartphone">
+        <img class="alien" id="alien" src="img/alien.png" alt="alien">
+    </main>
+
+    <footer>
+        <!-- input of User | display info -->
+        <section class="grid-container">
+            <div class="speed">
+                <label class="spacing" for="speed">Force:</label>
+                <input type="number" name="speed" id="speed" value="15">
+                <label>N</label>
+            </div>
+
+            <div class="angel">
+                <label class="spacing" for="angel">Angel:</label>
+                <input type="number" name="angel" id="angel" value="45">
+                <label>°</label>
+            </div>
+
+            <div class="startButton">
+                <button type="button" id="start">Throw</button>
+                <article class="lineOfFire">
+                    <input type="checkbox" id="lineOfFireCheckbox" name="lineOfFireBox" value="1" autocomplete="off">
+                    <label for="vehicle1">Line of Fire</label>
+                </article>
+            </div>
+
+            <div class="gravity">
+                <label>Gravity:<p id="gravity">9.81</p>m/s<sup>2</sup></label>
+            </div>
+
+            <div class="distanceThrown">
+                <label for="distance">distance thrown:<p id="totalDistance">0</p>m</label>
+            </div>
+
+            <div class="distanceX">
+                <label>distance X:<p id="distanceX">80</p>m</label>
+            </div>
+
+            <div class="distanceY">
+                <label>distance Y:<p id="distanceY">20</p>m</label>
+            </div>
+        </section>
+    </footer>
+
+    <script type ="text/javascript" src="myScript.js"></script>
+</body>
+</html>
