@@ -27,7 +27,7 @@ header {
     border-bottom: 2px solid var(--orange);
     color: var(--grey);
     background-color: var(--dark);
-    min-height: 10vh;
+    min-height: 30px;
 }
 nav  {
     padding: 1.5rem 0;

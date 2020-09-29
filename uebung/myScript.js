@@ -101,7 +101,7 @@ function calculate() {
         calcFlyingpath();
 
         // in scope
-        while (positionY >= 0 && positionX <= screenWidth + 5) {
+        while (true) {
             // hit area of monster
             if (positionX >= distanceXAway && positionX <= distanceXAway + alienWidth &&
                 positionY >= distanceYAway && positionY <= distanceYAway + alienHeight) {
